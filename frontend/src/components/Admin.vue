@@ -82,6 +82,7 @@
 
             <button @click="sendPhishingEmails">Send Phishing Email</button>
             <!-- <button @click="downloadReport">Download Performance Report</button> -->
+            <button @click="downloadReport">Download Clicked Candidates Report</button>
             <button @click="emailedCandidatesReport">Generate Emailed Candidates Report</button>       
             <!-- <button @click="sendReminder" class="sending-reminder-button">Send Reminder</button> -->
 
@@ -92,18 +93,20 @@
                     <tr>
                         <th>ID</th>
                         <th>Colleague Name</th>
+                        <th>Deartment</th>
                         <th>Link Clicked</th>
                         <th>Training Completed</th>
                         <!-- <th>Correct Answers</th>
                         <th>Score (out of 100)</th>
-                        <th>Status</th>
-                        <th>Training Attempted Date</th> -->
+                        <th>Status</th> -->
+                        <th>Link Clicked Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="report in reports" :key="report.id">
                         <td>{{ report.id }}</td>
                         <td>{{ getColleagueName(report.colleague_id) }}</td>
+                        <td>{{ getColleagueDepartment(report.colleague_id) }}</td>
                         <td>{{ report.clicked ? 'Yes' : 'No' }}</td>
                         <td>{{ report.answered ? 'Yes' : 'No' }}</td>
                         <!-- <td>{{ calculateCorrectAnswers(report.answers) }}/{{ questions.length }}</td>
@@ -116,8 +119,8 @@
                             <!-- <span v-if="report.status === 'Completed'">Complete</span>
                                 <span v-if="report.status === 'Pending'" class="pending-status">Pending</span>
                             </span>
-                        </td>
-                        <td>{{ formatDate(report.completion_date) }}</td> -->
+                        </td> -->
+                        <td>{{ formatDate(report.clicked_date) }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -158,17 +161,34 @@ export default {
         //     return date.toLocaleDateString('en-GB'); // Format as dd-mm-yyyy
         // },
 
-        // formatDate(dateString) {
-        //     if (!dateString) return 'N/A';
-        //     const date = new Date(dateString);
+        formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
             // return date.toLocaleDateString('en-GB'); // Format as dd-mm-yyyy
             // return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
 
-            // const day = date.getUTCDate().toString().padStart(2, '0');
-            // const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
-            // const year = date.getUTCFullYear();
-            // return `${day}-${month}-${year}`; // Format as dd-mm-yyyy
-        // },
+            const day = date.getUTCDate().toString().padStart(2, '0');
+            const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+            const year = date.getUTCFullYear();
+            return `${day}-${month}-${year}`; // Format as dd-mm-yyyy
+        },
+
+        async downloadReport() {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/generate_dashboard_clicked_report');
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'clicked_candidates_report.csv';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error("Error downloading the CSV report:", error);
+      }
+    },
+
+
 
         logout() {
             fetch('http://127.0.0.1:5000/logout', {
@@ -189,10 +209,10 @@ export default {
         },
 
         async sendPhishingEmails() {
-            if (!this.selectedDepartment) {
-                alert("Please select a department before sending emails.");
-                return;
-            }
+            // if (!this.selectedDepartment) {
+            //     alert("Please select a department before sending emails.");
+            //     return;
+            // }
 
             try {
                 const response = await fetch('http://127.0.0.1:5000/send_email', {
@@ -200,7 +220,7 @@ export default {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ department: this.selectedDepartment })
+                    // body: JSON.stringify({ department: this.selectedDepartment })
                 });
 
                 if (!response.ok) {
@@ -213,6 +233,7 @@ export default {
             } catch (error) {
                 console.error('Failed to send emails:', error);
                 this.message = 'Error sending emails. Please try again.';
+                alert("Email is Not Send to Candidates")
             }
         },
 
@@ -278,6 +299,11 @@ export default {
         getColleagueName(colleagueId) {
             const colleague = this.colleagues.find(c => c.id === colleagueId);
             return colleague ? colleague.name : 'Unknown';
+        },
+
+        getColleagueDepartment(colleagueId) {
+            const colleague = this.colleagues.find(c => c.id === colleagueId);
+            return colleague ? colleague.department : 'Unknown';
         },
 
         // calculateCorrectAnswers(answers) {

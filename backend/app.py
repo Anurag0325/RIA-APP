@@ -21,7 +21,7 @@ import jwt
 from sqlalchemy import func
 from dotenv import load_dotenv
 
-# load_dotenv()
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -69,6 +69,36 @@ def insert_dummy_data():
         #     "department": "Leadership", "designation": "CTO"},
         # {"name": "Lav Kaushik", "email": "lav@kvqaindia.com",
         #     "department": "Leadership", "designation": "CEO"},
+        # {"name": "Varun", "email": "2345varun@gmail.com",
+        #     "department": "Leadership", "designation": "CEO"},
+        # {"name": "TRG", "email": "trg@kvqaindia.com",
+        #     "department": "Training", "designation": "Training Coordinator"},
+        # {"name": "sales", "email": "sales1@kvqaindia.com",
+        #     "department": "Sales", "designation": "Sales Head"},
+        # {"name": "NoidaISO", "email": "noidaiso22@gmail.com",
+        #     "department": "Noida", "designation": "Noida"},
+        # {"name": "Ruby", "email": "ruby@kvqaindia.com",
+        #     "department": "IT", "designation": "IT Operations"},
+        # {"name": "Babli", "email": "babli12@kvqaindia.com",
+        #     "department": "Sales", "designation": "Sales"},
+        # {"name": "Shikha", "email": "shikha12@kvqaindia.com",
+        #     "department": "Operations", "designation": "Opeartion Head"},
+        # {"name": "Kanchan", "email": "kanchan@kvqaindia.com",
+        #     "department": "Sales", "designation": "Sales"},
+        # {"name": "Info", "email": "info@kvqaindia.com",
+        #     "department": "Operations", "designation": "Information Sharing"},
+        # {"name": "Vaishali", "email": "vaishali@kvqaindia.com",
+        #     "department": "Certificate", "designation": "Certificate Head"},
+        # {"name": "Neha", "email": "neha12@kvqaindia.com",
+        #     "department": "Sales", "designation": "Sales"},
+        # {"name": "DHR", "email": "dhr@kvqaindia.com",
+        #     "department": "DHR", "designation": "DHR"},
+        # {"name": "Delhi", "email": "delhi@kvqaindia.com",
+        #     "department": "Delhi", "designation": "Delhi"},
+        # {"name": "Arun", "email": "arun.kvqa@gmail.com",
+        #     "department": "Leadership", "designation": "CFO"},
+        # {"name": "OPS", "email": "ops@kvqaindia.com",
+        #     "department": "OPS", "designation": "OPS"},
         # {"name": "Krishna Chaudhari", "email": "krishna.chaudhari@riaadvisory.com",
         #     "department": "Internal IT and Cloud Ops", "designation": "Associate Consultant"},
         # {"name": "Krishna Chaudhari GMAIL", "email": "krish.chaudhari2018@gmail.com",
@@ -462,116 +492,116 @@ emailed_candidates = []
 
 #     return jsonify({'message': 'Phishing emails sent to colleagues.'})
 
-@app.route('/send_email', methods=['GET', 'POST'])
-def send_email():
-    global emailed_candidates
-    emailed_candidates = []
+# @app.route('/send_email', methods=['GET', 'POST'])
+# def send_email():
+#     global emailed_candidates
+#     emailed_candidates = []
 
-    request_data = request.json
-    selected_department = request_data.get('department')
+#     request_data = request.json
+#     selected_department = request_data.get('department')
 
-    if not selected_department:
-        return jsonify({'error': 'No department selected'}), 400
+#     if not selected_department:
+#         return jsonify({'error': 'No department selected'}), 400
 
-    templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
-    signature_image_path = ''
+#     templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+#     signature_image_path = ''
 
-    if selected_department == 'HR, Information Security, Training and TMG':
-        with open(os.path.join(templates_dir, 'hr_email_template.html')) as f:
-            email_template = f.read()
-        action_name = "Update Payroll Information"
-        email_subject = "Update Your Payroll Information for Q4"
-        # signature_image_path = os.path.join('templates', 'hr_signature.jpeg')
+#     if selected_department == 'HR, Information Security, Training and TMG':
+#         with open(os.path.join(templates_dir, 'hr_email_template.html')) as f:
+#             email_template = f.read()
+#         action_name = "Update Payroll Information"
+#         email_subject = "Update Your Payroll Information for Q4"
+#         # signature_image_path = os.path.join('templates', 'hr_signature.jpeg')
 
-    elif selected_department == 'Sales and Marketing, Finance, Admin':
-        with open(os.path.join(templates_dir, 'accounts_email_template.html')) as f:
-            email_template = f.read()
-        action_name = "Update Credentials"
-        email_subject = "Update Your Credentials for Compliance"
-        # signature_image_path = os.path.join(
-        #     'templates', 'sales_signature.jpeg')
+#     elif selected_department == 'Sales and Marketing, Finance, Admin':
+#         with open(os.path.join(templates_dir, 'accounts_email_template.html')) as f:
+#             email_template = f.read()
+#         action_name = "Update Credentials"
+#         email_subject = "Update Your Credentials for Compliance"
+#         # signature_image_path = os.path.join(
+#         #     'templates', 'sales_signature.jpeg')
 
-    elif selected_department == 'Developer and Product Development':
-        with open(os.path.join(templates_dir, 'developer_template.html')) as f:
-            email_template = f.read()
-            action_name = "Download Security Patch"
-            email_subject = "Security Patch Deployment for Development Tools"
-            # signature_image_path = os.path.join(
-            #     'templates', 'product_development_signature.jpeg')
+#     elif selected_department == 'Developer and Product Development':
+#         with open(os.path.join(templates_dir, 'developer_template.html')) as f:
+#             email_template = f.read()
+#             action_name = "Download Security Patch"
+#             email_subject = "Security Patch Deployment for Development Tools"
+#             # signature_image_path = os.path.join(
+#             #     'templates', 'product_development_signature.jpeg')
 
-    elif selected_department == 'Leadership':
-        with open(os.path.join(templates_dir, 'leadership_template.html')) as f:
-            email_template = f.read()
-            action_name = "Review Strategic Plan"
-            email_subject = "Strategic Plan Review for Q4 - Action Required"
-            # signature_image_path = os.path.join(
-            #     'templates', 'leadership_signature.jpeg')
-    # else:
-    #     with open(os.path.join(templates_dir, 'email_template.html')) as f:
-    #         email_template = f.read()
-    #     action_name = "Complete Action"
-    #     email_subject = "Action Required: Complete Task"  # Default subject
+#     elif selected_department == 'Leadership':
+#         with open(os.path.join(templates_dir, 'leadership_template.html')) as f:
+#             email_template = f.read()
+#             action_name = "Review Strategic Plan"
+#             email_subject = "Strategic Plan Review for Q4 - Action Required"
+#             # signature_image_path = os.path.join(
+#             #     'templates', 'leadership_signature.jpeg')
+#     # else:
+#     #     with open(os.path.join(templates_dir, 'email_template.html')) as f:
+#     #         email_template = f.read()
+#     #     action_name = "Complete Action"
+#     #     email_subject = "Action Required: Complete Task"  # Default subject
 
-    colleagues = Colleagues.query.all()
+#     colleagues = Colleagues.query.all()
 
-    from_email = "akanuragkumar4@gmail.com"
-    password = "lhzmyglosnrayvdk"
+#     # from_email = "akanuragkumar4@gmail.com"
+#     # password = "lhzmyglosnrayvdk"
 
-    # from_email = os.getenv('Email_Username')
-    # password = os.getenv('Password')
+#     # # from_email = os.getenv('Email_Username')
+#     # # password = os.getenv('Password')
 
-    for colleague in colleagues:
-        # tracking_link = f"https://phishing-mail-application.onrender.com/phishing_test/{colleague.id}"
-        # tracking_link = f"https://phishing-mail-frontend.vercel.app/phishing_test/{colleague.id}"
-        # tracking_link = f"https://phishing-mail-frontend-updated.vercel.app/phishing_test/{colleague.id}"
-        tracking_link = f"http://localhost:8080/phishing_test/{colleague.id}"
+#     for colleague in colleagues:
+#     #     # tracking_link = f"https://phishing-mail-application.onrender.com/phishing_test/{colleague.id}"
+#     #     # tracking_link = f"https://phishing-mail-frontend.vercel.app/phishing_test/{colleague.id}"
+#     #     # tracking_link = f"https://phishing-mail-frontend-updated.vercel.app/phishing_test/{colleague.id}"
+#         tracking_link = f"http://localhost:8080/phishing_test/{colleague.id}"
 
-        print(f"Generated tracking link for {colleague.name}: {tracking_link}")
+#         print(f"Generated tracking link for {colleague.name}: {tracking_link}")
 
-        to_email = colleague.email
-        msg = MIMEMultipart('related')
-        msg['Subject'] = email_subject
-        msg['From'] = from_email
-        msg['To'] = to_email
+#         to_email = colleague.email
+#         msg = MIMEMultipart('related')
+#         msg['Subject'] = email_subject
+#         msg['From'] = from_email
+#         msg['To'] = to_email
 
-        body = email_template.replace("{{recipient_name}}", colleague.name)
-        body = body.replace("{{action_link}}", tracking_link)
-        body = body.replace("{{action_name}}", action_name)
-        body = body.replace("{{email_subject}}", email_subject)
+#         body = email_template.replace("{{recipient_name}}", colleague.name)
+#         body = body.replace("{{action_link}}", tracking_link)
+#         body = body.replace("{{action_name}}", action_name)
+#         body = body.replace("{{email_subject}}", email_subject)
 
-        html_content = f"""
-        <html>
-            <body>
-                {body}
-            </body>
-        </html>
-        """
-        msg.attach(MIMEText(html_content, 'html'))
+#         html_content = f"""
+#         <html>
+#             <body>
+#                 {body}
+#             </body>
+#         </html>
+#         """
+#         msg.attach(MIMEText(html_content, 'html'))
 
-        # signature_image_path = os.path.join('templates', 'Capture.JPG')
-        # with open(signature_image_path, 'rb') as img_file:
-        #     img = MIMEImage(img_file.read())
-        #     img.add_header('Content-ID', '<signature_image>')
-        #     msg.attach(img)
+#         signature_image_path = os.path.join('templates', 'Capture.JPG')
+#         with open(signature_image_path, 'rb') as img_file:
+#             img = MIMEImage(img_file.read())
+#             img.add_header('Content-ID', '<signature_image>')
+#             msg.attach(img)
 
-        try:
-            with smtplib.SMTP('smtp.gmail.com', 587) as server:
-                server.starttls()
-                server.login(from_email, password)
-                server.send_message(msg)
-            print(f"Email sent to {colleague.email}")
+#         try:
+#             with smtplib.SMTP('smtp.gmail.com', 587) as server:
+#                 server.starttls()
+#                 server.login(from_email, password)
+#                 server.send_message(msg)
+#             print(f"Email sent to {colleague.email}")
 
-            emailed_candidates.append({
-                'name': colleague.name,
-                'email': colleague.email,
-                'designation': colleague.designation
-            })
-            print("Emailed candidates list after sending:", emailed_candidates)
+#             emailed_candidates.append({
+#                 'name': colleague.name,
+#                 'email': colleague.email,
+#                 'designation': colleague.designation
+#             })
+#             print("Emailed candidates list after sending:", emailed_candidates)
 
-        except Exception as e:
-            print(f"Failed to send email to {colleague.email}: {str(e)}")
+#         except Exception as e:
+#             print(f"Failed to send email to {colleague.email}: {str(e)}")
 
-    return jsonify({'message': 'Phishing emails sent to colleagues.'})
+#     return jsonify({'message': 'Phishing emails sent to colleagues.'})
 
     # Batch size for email sending
 #     batch_size = 50
@@ -628,6 +658,117 @@ def send_email():
 #     return jsonify({'message': 'Phishing emails sent to colleagues.'})
 
 
+@app.route('/send_email', methods=['GET', 'POST'])
+def send_email():
+    global emailed_candidates
+    emailed_candidates = []
+
+    # request_data = request.json
+    # selected_department = request_data.get('department')
+
+    # if not selected_department:
+    #     return jsonify({'error': 'No department selected'}), 400
+
+    # Load email templates and setup for departments
+    templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
+
+    # Retrieve all colleagues from the database
+    colleagues = Colleagues.query.all()
+
+    # Divide colleagues into 3 groups
+    part_size = len(colleagues) // 3
+    group1 = colleagues[:part_size]      # Part 1
+    group2 = colleagues[part_size:2*part_size]  # Part 2
+    group3 = colleagues[2*part_size:]    # Part 3
+
+    # Define department-specific email configurations
+    department_config = {
+        'HR': {
+            'email': os.getenv('HR_EMAIL'),
+            'password': os.getenv('HR_PASSWORD'),
+            'template': 'hr_email_template.html',
+            'subject': "Update Your Payroll Information for Q4",
+            'action_name': "Update Payroll Information"
+        },
+        'Leadership': {
+            'email': os.getenv('LEADERSHIP_EMAIL'),
+            'password': os.getenv('LEADERSHIP_PASSWORD'),
+            'template': 'leadership_template.html',
+            'subject': "Strategic Plan Review for Q4 - Action Required",
+            'action_name': "Review Strategic Plan"
+        },
+        'Developer': {
+            'email': os.getenv('DEVELOPER_EMAIL'),
+            'password': os.getenv('DEVELOPER_PASSWORD'),
+            'template': 'developer_template.html',
+            'subject': "Security Patch Deployment for Development Tools",
+            'action_name': "Download Security Patch"
+        }
+    }
+
+    # Send emails to each group with corresponding department's configuration
+    send_group_email(group1, department_config['HR'], templates_dir)
+    send_group_email(group2, department_config['Leadership'], templates_dir)
+    send_group_email(group3, department_config['Developer'], templates_dir)
+
+    return jsonify({'message': 'Phishing emails sent to colleagues.'})
+
+
+def send_group_email(group, config, templates_dir):
+    """Helper function to send emails to a group with specific department config."""
+    from_email = config['email']
+    password = config['password']
+    email_subject = config['subject']
+    action_name = config['action_name']
+
+    # Load the email template
+    with open(os.path.join(templates_dir, config['template'])) as f:
+        email_template = f.read()
+
+    for colleague in group:
+        tracking_link = f"http://localhost:8080/phishing_test/{colleague.id}"
+
+        print(f"Generated tracking link for {colleague.name}: {tracking_link}")
+
+        to_email = colleague.email
+        msg = MIMEMultipart('related')
+        msg['Subject'] = email_subject
+        msg['From'] = from_email
+        msg['To'] = to_email
+
+        body = email_template.replace("{{recipient_name}}", colleague.name)
+        body = body.replace("{{action_link}}", tracking_link)
+        body = body.replace("{{action_name}}", action_name)
+        body = body.replace("{{email_subject}}", email_subject)
+
+        html_content = f"""
+        <html>
+            <body>
+                {body}
+            </body>
+        </html>
+        """
+        msg.attach(MIMEText(html_content, 'html'))
+
+        try:
+            with smtplib.SMTP('smtp.gmail.com', 587) as server:
+                server.starttls()
+                server.login(from_email, password)
+                server.send_message(msg)
+            print(f"Email sent to {colleague.email}")
+
+            emailed_candidates.append({
+                'name': colleague.name,
+                'email': colleague.email,
+                'designation': colleague.designation
+            })
+            print("Emailed candidates list after sending:", emailed_candidates)
+
+        except Exception as e:
+            print(f"Failed to send email to {colleague.email}: {str(e)}")
+
+
+
 @app.route('/phishing_test/<int:colleague_id>', methods=['GET'])
 def phishing_test(colleague_id):
     print(f'Phishing test accessed for colleague ID: {colleague_id}')
@@ -654,7 +795,7 @@ def generate_emailed_candidates_report():
     try:
         csv_file_path = "emailed_candidates_report.csv"
         with open(csv_file_path, mode='w', newline='', encoding='utf-8') as csvfile:
-            fieldnames = ['name', 'email', 'department', 'designation']
+            fieldnames = ['name', 'email', 'department', 'designation', 'clicked_date']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             writer.writeheader()
@@ -672,22 +813,72 @@ def users():
     return jsonify([{'id': u.id, 'name': u.name, 'email': u.email, 'department': u.department, 'designation': u.designation} for u in user])
 
 
+# @app.route('/phising_click/<int:colleague_id>', methods=['POST'])
+# def phising_click(colleague_id):
+#     print(f'Received request for colleague ID: {colleague_id}')
+#     colleague = Colleagues.query.get(colleague_id)
+#     if not colleague:
+#         return jsonify({'error': 'Colleague not found.'}), 404
+
+#     report = Reports.query.filter_by(colleague_id=colleague_id).first()
+#     report.clicked_date = datetime.now()
+#     if report:
+#         report.clicked = True
+#         # report.clicked_date = datetime.now()
+#         print(f"Setting clicked_date: {report.clicked_date}")
+#     else:
+#         report = Reports(colleague_id=colleague_id,
+#                          clicked=True, answered=False, answers={})
+#         report.clicked_date = datetime.now()
+#         db.session.add(report)
+#         print(f"Setting clicked_date: {report.clicked_date}")
+#     db.session.commit()
+
+#     candidate_data = {
+#         'id': colleague.id,
+#         'name': colleague.name,
+#         'email': colleague.email,
+#         'department': colleague.department,
+#         'designation': colleague.designation
+#     }
+
+#     return jsonify({'message': 'Click recorded', 'candidate': candidate_data})
+
+
 @app.route('/phising_click/<int:colleague_id>', methods=['POST'])
 def phising_click(colleague_id):
     print(f'Received request for colleague ID: {colleague_id}')
+    
+    # Fetch the colleague based on the ID
     colleague = Colleagues.query.get(colleague_id)
     if not colleague:
         return jsonify({'error': 'Colleague not found.'}), 404
 
+    # Try to find an existing report for this colleague
     report = Reports.query.filter_by(colleague_id=colleague_id).first()
+    
+    # If a report exists, update the clicked information
     if report:
         report.clicked = True
+        report.clicked_date = datetime.now()  # Update clicked date to current date-time
+        print(f"Updated clicked_date for existing report: {report.clicked_date}")
+    
+    # If no report exists, create a new one
     else:
-        report = Reports(colleague_id=colleague_id,
-                         clicked=True, answered=False, answers={})
+        report = Reports(
+            colleague_id=colleague_id,
+            clicked=True,
+            clicked_date=datetime.now(),  # Initialize clicked_date for new report
+            answered=False,
+            answers={}
+        )
         db.session.add(report)
+        print(f"Created new report with clicked_date: {report.clicked_date}")
+
+    # Save changes to the database
     db.session.commit()
 
+    # Prepare data for response
     candidate_data = {
         'id': colleague.id,
         'name': colleague.name,
@@ -699,11 +890,12 @@ def phising_click(colleague_id):
     return jsonify({'message': 'Click recorded', 'candidate': candidate_data})
 
 
+
 @app.route('/reports', methods=['GET'])
 def get_reports():
     reports = Reports.query.all()
     report_data = [{'id': r.id, 'colleague_id': r.colleague_id, 'clicked': r.clicked,
-                    'answered': r.answered, 'answers': r.answers, 'status': r.status, 'score': r.score, 'completion_date': r.completion_date} for r in reports]
+                    'answered': r.answered, 'answers': r.answers, 'status': r.status, 'score': r.score, 'clicked_date': r.clicked_date} for r in reports]
     return jsonify(report_data)
 
 
@@ -718,7 +910,7 @@ def phishing_opened(colleague_id):
         print(f'Updated existing report for ID {colleague_id} to clicked=True')
     else:
         report = Reports(colleague_id=colleague_id,
-                         clicked=True, answered=False, answers={})
+                         clicked=True, answered=False, answers={}, clicked_date=datetime.now())
         db.session.add(report)
         print(f'Created new report for ID {colleague_id} with clicked=True')
 
@@ -904,7 +1096,7 @@ def submit_answers(colleague_id):
             data['answers'], correct_answers, data['questions'])
         print(report.score)
         report.status = "Completed" if report.score >= 70 else "Pending"
-        report.completion_date = datetime.now()
+        report.clicked_date = datetime.now()
         db.session.commit()
 
         study_material_link = f"http://localhost:8080/study-material/{colleague_id}"
@@ -943,7 +1135,7 @@ def generate_reports():
                 # 'Answered': report.answered,
                 'Score': report.score,
                 'Status': report.status,
-                'Completion Date': report.completion_date.strftime('%Y-%m-%d') if report.completion_date else None,
+                'Completion Date': report.clicked_date.strftime('%Y-%m-%d') if report.clicked_date else None,
             }
             report_data.append(report_entry)
 
@@ -1317,11 +1509,47 @@ def get_all_reports():
     try:
         reports = Reports.query.all()
         report_data = [{'id': r.id, 'colleague_id': r.colleague_id, 'clicked': r.clicked,
-                        'answered': r.answered, 'answers': r.answers, 'status': r.status, 'score': r.score, 'completion_date': r.completion_date} for r in reports]
+                        'answered': r.answered, 'answers': r.answers, 'status': r.status, 'score': r.score, 'clicked_date': r.clicked_date} for r in reports]
         return jsonify({'reports': report_data})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/generate_dashboard_clicked_report', methods=['GET'])
+def generate_dashboard_clicked_report():
+    # Query Reports where clicked is True
+    clicked_reports = Reports.query.filter_by(clicked=True).all()
 
+    if not clicked_reports:
+        return jsonify({'error': 'No candidates have clicked the link.'}), 400
+
+    # Prepare the data to be written to the CSV file
+    clicked_candidates = []
+    for report in clicked_reports:
+        colleague = report.colleague
+        clicked_candidates.append({
+            'name': colleague.name,
+            'email': colleague.email,
+            'department': colleague.department,
+            'designation': colleague.designation,
+            'clicked_date': report.clicked_date.strftime('%Y-%m-%d') if report.clicked_date else None
+        })
+
+    # Generate the CSV file
+    try:
+        csv_file_path = "dashboard_clicked_candidates_report.csv"
+        with open(csv_file_path, mode='w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ['name', 'email', 'department', 'designation', 'clicked_date']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+            writer.writeheader()
+            writer.writerows(clicked_candidates)
+
+        return send_file(csv_file_path, as_attachment=True)
+
+    except Exception as e:
+        print(f"Error generating report: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+    
+    
 if __name__ == "__main__":
     app.run(debug=True)

@@ -53,7 +53,7 @@ class Reports(db.Model):
     answers = db.Column(db.PickleType)
     score = db.Column(db.Float)
     status = db.Column(db.String(50), default="Pending")
-    completion_date = db.Column(db.DateTime)
+    clicked_date = db.Column(db.DateTime)
     colleague = db.relationship(
         'Colleagues', backref=db.backref('reports', lazy=True))
 
@@ -69,5 +69,5 @@ class Reports(db.Model):
             "answers": self.answers,
             "answered": self.answered,
             "clicked": self.clicked,
-            "completion_date": self.completion_date.strftime('%Y-%m-%d') if self.completion_date else None
+            "clicked_date": self.clicked_date.strftime('%Y-%m-%d') if self.clicked_date else None
         }
