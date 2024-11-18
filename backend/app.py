@@ -28,33 +28,33 @@ app = Flask(__name__)
 CORS(app)
 
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.sqlite3"
-# app.config['SECRET_KEY'] = "anuragiitmadras"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.sqlite3"
+app.config['SECRET_KEY'] = "anuragiitmadras"
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
 #     'DATABASE_URL')  # Use full URL from Render
 # app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:qwerty@localhost:5432/kvqadatabase"
-app.config['SECRET_KEY'] = "anuragiitmadras"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:qwerty@localhost:5432/kvqadatabase"
+# app.config['SECRET_KEY'] = "anuragiitmadras"
 
 
 db.init_app(app)
 
 
-def create_database():
-    connection = psycopg2.connect(
-    user="postgres", password="qwerty", host="127.0.0.1", port="5432")
-    connection.autocommit = True
-    cursor = connection.cursor()
-    try:
-        cursor.execute("CREATE DATABASE kvqadatabase")
-        print("Database created successfully")
-    except psycopg2.errors.DuplicateDatabase:
-        print("Database already exists")
-    finally:
-        cursor.close()
-        connection.close()
+# def create_database():
+#     connection = psycopg2.connect(
+#     user="postgres", password="qwerty", host="127.0.0.1", port="5432")
+#     connection.autocommit = True
+#     cursor = connection.cursor()
+#     try:
+#         cursor.execute("CREATE DATABASE kvqadatabase")
+#         print("Database created successfully")
+#     except psycopg2.errors.DuplicateDatabase:
+#         print("Database already exists")
+#     finally:
+#         cursor.close()
+#         connection.close()
 
 
 def insert_dummy_data():
@@ -143,7 +143,7 @@ def insert_dummy_data():
 
 
 with app.app_context():
-    create_database()
+    # create_database()
     db.create_all()
     insert_dummy_data()
 
