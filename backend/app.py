@@ -330,7 +330,7 @@ def send_group_email(group, config, templates_dir):
         email_template = f.read()
 
     for colleague in group:
-        tracking_link = f"http://localhost:8080/phishing_test/{colleague.id}"
+        tracking_link = f"https://ria-app.vercel.app/phishing_test/{colleague.id}"
 
         print(f"Generated tracking link for {colleague.name}: {tracking_link}")
 
