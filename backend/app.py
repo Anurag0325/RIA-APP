@@ -3522,7 +3522,7 @@ emailed_candidates = []
 # New code
 
 groups = [
-    {'start': 1, 'end': 3, 'config': 'Developer'},
+    {'start': 3, 'end': 5, 'config': 'Developer'},
     # {'start': 400, 'end': 788, 'config': 'Developer_1'},
     # {'start': 788, 'end': 802, 'config': 'Leadership'},
     # {'start': 802, 'end': 986, 'config': 'HR'},
