@@ -2812,7 +2812,6 @@ def insert_dummy_data():
             'department': 'department_884', 'designation': 'designation_884'},
         {'name': 'name_885', 'email': 'user885@mailinator.com',
             'department': 'department_885', 'designation': 'designation_885'}
-
     ]
 
     # colleagues = [Colleagues(name=data['name'], email=data['email'],
@@ -3523,7 +3522,7 @@ emailed_candidates = []
 # New code
 
 groups = [
-    {'start': 0, 'end': 400, 'config': 'Developer'},
+    {'start': 976, 'end': 980, 'config': 'Developer'},
     # {'start': 400, 'end': 788, 'config': 'Developer_1'},
     # {'start': 788, 'end': 802, 'config': 'Leadership'},
     # {'start': 802, 'end': 986, 'config': 'HR'},
