@@ -768,12 +768,12 @@ def insert_dummy_data():
     colleagues_data = [
         {"name": "Alice Johnson", "email": "22dp1000105@ds.study.iitm.ac.in",
             "department": "IT", "designation": "Analyst"},
-        # {"name": "Anurag Kumar GMAIL", "email": "akanuragkumar75@gmail.com",
-        #     "department": "Developer", "designation": "Developer"},
-        # {"name": "Anurag Kumar", "email": "tech@kvqaindia.com",
-        #     "department": "Developer", "designation": "Frontend Developer"},
-        # {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
-        #     "department": "Leadership", "designation": "CFO"},
+        {"name": "Anurag Kumar GMAIL", "email": "akanuragkumar75@gmail.com",
+            "department": "Developer", "designation": "Developer"},
+        {"name": "Anurag Kumar", "email": "tech@kvqaindia.com",
+            "department": "Developer", "designation": "Frontend Developer"},
+        {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
+            "department": "Leadership", "designation": "CFO"},
         # {"name": "Ritika", "email": "training@kvqaindia.com",
         #     "department": "Leadership", "designation": "CTO"},
         # {"name": "Lav Kaushik", "email": "lav@kvqaindia.com",
@@ -3522,7 +3522,7 @@ emailed_candidates = []
 # New code
 
 groups = [
-    {'start': 0, 'end': 2, 'config': 'Developer'},
+    {'start': 2, 'end': 4, 'config': 'Developer'},
     # {'start': 400, 'end': 788, 'config': 'Developer_1'},
     # {'start': 788, 'end': 802, 'config': 'Leadership'},
     # {'start': 802, 'end': 986, 'config': 'HR'},
