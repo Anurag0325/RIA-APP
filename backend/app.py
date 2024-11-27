@@ -768,12 +768,12 @@ def insert_dummy_data():
     colleagues_data = [
         {"name": "Alice Johnson", "email": "22dp1000105@ds.study.iitm.ac.in",
             "department": "IT", "designation": "Analyst"},
-        {"name": "Anurag Kumar GMAIL", "email": "akanuragkumar75@gmail.com",
-            "department": "Developer", "designation": "Developer"},
-        {"name": "Anurag Kumar", "email": "tech@kvqaindia.com",
-            "department": "Developer", "designation": "Frontend Developer"},
-        {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
-            "department": "Leadership", "designation": "CFO"},
+        # {"name": "Anurag Kumar GMAIL", "email": "akanuragkumar75@gmail.com",
+        #     "department": "Developer", "designation": "Developer"},
+        # {"name": "Anurag Kumar", "email": "tech@kvqaindia.com",
+        #     "department": "Developer", "designation": "Frontend Developer"},
+        # {"name": "Anurag Gmail", "email": "akanuragkumar4@gmail.com",
+        #     "department": "Leadership", "designation": "CFO"},
         # {"name": "Ritika", "email": "training@kvqaindia.com",
         #     "department": "Leadership", "designation": "CTO"},
         # {"name": "Lav Kaushik", "email": "lav@kvqaindia.com",
@@ -1600,6 +1600,8 @@ def insert_dummy_data():
         #     'department': 'department_281', 'designation': 'designation_281'},
         # {'name': 'name_282', 'email': 'user282@mailinator.com',
         #     'department': 'department_282', 'designation': 'designation_282'},
+        {"name": "Anurag Kumar GMAIL", "email": "akanuragkumar75@gmail.com",
+            "department": "Developer", "designation": "Developer"},
         # {'name': 'name_283', 'email': 'user283@mailinator.com',
         #     'department': 'department_283', 'designation': 'designation_283'},
         # {'name': 'name_284', 'email': 'user284@mailinator.com',
@@ -3522,7 +3524,7 @@ emailed_candidates = []
 # New code
 
 groups = [
-    {'start': 3, 'end': 5, 'config': 'Developer'},
+    {'start': 0, 'end': 182, 'config': 'Developer'},
     # {'start': 400, 'end': 788, 'config': 'Developer_1'},
     # {'start': 788, 'end': 802, 'config': 'Leadership'},
     # {'start': 802, 'end': 986, 'config': 'HR'},
@@ -3744,8 +3746,8 @@ def send_email():
         failed_emails = []  # Track failed emails for debugging
 
         # SMTP connection setup
-        # with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
-        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+        with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+        # with smtplib.SMTP('smtp.gmail.com', 587) as server:
             server.starttls()
 
             # Iterate through groups and send emails for each group
