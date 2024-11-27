@@ -3744,8 +3744,8 @@ def send_email():
         failed_emails = []  # Track failed emails for debugging
 
         # SMTP connection setup
-        with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
-            # with smtplib.SMTP('smtp.gmail.com', 587) as server:
+        # with smtplib.SMTP('smtpout.secureserver.net', 587) as server:
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
             server.starttls()
 
             # Iterate through groups and send emails for each group
